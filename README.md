@@ -2,10 +2,9 @@
 
 # End to End tests in local environment
 End2end tests use Chrome browser to execute the tests.
-Is advisable (but not mandatory) to not use input devices (mouse/keyboard) during tests execution.
-Chrome driver is present in `/resources/chromedriver.exe`
+Chrome driver is present in `/src/resources/driver/chromedriver.exe`
 
-## Run Tests
+## Run Testsdd .
 - `mvn clean install -Dbrowser=chrome -Dmode=local -Denvironment=local -DsuiteXmlFile=E2e_test.xml`
 
 
