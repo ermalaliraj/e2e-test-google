@@ -11,5 +11,5 @@ Chrome driver is present in `/src/resources/driver/chromedriver.exe`
 ## Test results
 On build complete, result will be present in:
 `../target/results/cucumber-maven-reports/cucumber-html-reports/overview-features.html`
-And the output will look like this:  ![Cucumber Result](./src/resources/img/cucumber_result.png)
+And the output will look like this:  ![Cucumber Result](./src/resources/img/cucumber_result.JPG)
 "# e2e-test-google" 
