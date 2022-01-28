@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <theme>standard</theme>
+        <enableTimeline>true</enableTimeline>
+        <encoding>UTF-8</encoding>
+        <protocol>http</protocol>
+        <documentTitle>E2eReport</documentTitle>
+        <reportName>Test Automation Report</reportName>
+        <testViewChartLocation>top</testViewChartLocation>
+        <scripts>
+            <![CDATA[
+                $(document).ready(function() {
+
+                });
+            ]]>
+        </scripts>
+        <styles>
+            <![CDATA[
+
+            ]]>
+        </styles>
+    </configuration>
+</extentreports>
