@@ -150,7 +150,7 @@ public class Common {
     }
 
     // Function to verify the element is loaded before entering data
-    public static void elementEcasSendkeys(WebDriver driver, By by, String data) {
+    public static void elementChangeValue(WebDriver driver, By by, String data) {
         try {
             if (elementExists(driver, by)) {
                 WebElement element = driver.findElement(by);
@@ -166,6 +166,11 @@ public class Common {
             e.printStackTrace();
             throw e;
         }
+    }
+
+    public static void elementChangeValue(WebElement element, String data) {
+        element.clear();
+        element.sendKeys(data);
     }
 
     // Function to keep assertions on particular element.
@@ -221,6 +226,11 @@ public class Common {
             return false;
         }
 
+    }
+
+    public static void clickEsc(WebDriver driver) {
+        Actions actions = new Actions(driver);
+        actions.sendKeys(Keys.ESCAPE).build().perform();
     }
 
     public String getElementText(WebDriver driver, By by) {
