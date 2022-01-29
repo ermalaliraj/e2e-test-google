@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class Configuration {
 
-    public static final String SCREENSHOT = "target/results/Screenshots/Screenshot_" + getTimeStamp() + ".PNG";
+    public static final String SCREENSHOT = "target/results/Screenshots/Screenshot_" + getTimeStamp() + ".png";
     public static final String DRIVER_PATH = "src/resources/driver/chromedriver.exe"; // v97
     private static final String MAIN_CONFIG_FILE_PATH = "filters/selenium.properties";
     private static final String USERS_FILE_PATH = "filters/users.properties";

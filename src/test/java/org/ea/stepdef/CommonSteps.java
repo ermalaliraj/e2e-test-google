@@ -36,7 +36,7 @@ public class CommonSteps {
             log.debug("Closing Scenario with FAILURES");
             Reporter.getCurrentTestResult().setStatus(ITestResult.FAILURE);
             takeScreenshot(WebDriverFactory.getInstance().getWebDriver());
-            TestNgParameters.getInstance().getScenario().log("Click below for Screenshot");
+//            TestNgParameters.getInstance().getScenario().log("Click below for Screenshot");
             byte[] bytes = FileUtils.readFileToByteArray(new File(TestNgParameters.getInstance().getScreenshotPath()));
             TestNgParameters.getInstance().getScenario().attach(bytes, "image/png", "ErrorScreenshot");
             if (null != WebDriverFactory.getInstance().getWebDriver()) {

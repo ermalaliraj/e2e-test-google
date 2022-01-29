@@ -305,7 +305,7 @@ public class Common {
         if (resultStatus == 1) {
             takeScreenshot = "true".equalsIgnoreCase(config.getProperty("takeScreenshots.pass"));
         } else if (resultStatus == 2) {
-            takeScreenshot = "fail".equalsIgnoreCase(config.getProperty("takeScreenshots.fail"));
+            takeScreenshot = "true".equalsIgnoreCase(config.getProperty("takeScreenshots.fail"));
         }
 
         if (takeScreenshot) {
