@@ -1,7 +1,7 @@
 package com.ea.stepdef;
 
+import com.ea.config.DriverFactory;
 import com.ea.config.TestNgParameters;
-import com.ea.config.WebDriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -27,7 +27,7 @@ public class AppHooks {
     public void startScenario(Scenario scenario) {
         log.debug("Start Scenario");
         TestNgParameters.getInstance().setScenario(scenario);
-        WebDriverFactory.getInstance().setWebDriver();
+        DriverFactory.getInstance().setWebDriver();
     }
 
     @After
@@ -35,17 +35,17 @@ public class AppHooks {
         if (TestNgParameters.getInstance().getScenario().isFailed()) {
             log.debug("Closing Scenario with FAILURES");
             Reporter.getCurrentTestResult().setStatus(ITestResult.FAILURE);
-            takeScreenshot(WebDriverFactory.getInstance().getWebDriver());
+            takeScreenshot(DriverFactory.getInstance().getWebDriver());
             byte[] bytes = FileUtils.readFileToByteArray(new File(TestNgParameters.getInstance().getScreenshotPath()));
             TestNgParameters.getInstance().getScenario().attach(bytes, "image/png", "ErrorScreenshot");
-            if (null != WebDriverFactory.getInstance().getWebDriver()) {
-                WebDriverFactory.getInstance().getWebDriver().quit();
+            if (null != DriverFactory.getInstance().getWebDriver()) {
+                DriverFactory.getInstance().getWebDriver().quit();
                 TestNgParameters.getInstance().getScenario().log("Close Browser");
             }
         } else {
             log.debug("Closing Scenario with SUCCESS");
-            if (null != WebDriverFactory.getInstance().getWebDriver()) {
-                WebDriverFactory.getInstance().getWebDriver().quit();
+            if (null != DriverFactory.getInstance().getWebDriver()) {
+                DriverFactory.getInstance().getWebDriver().quit();
                 TestNgParameters.getInstance().getScenario().log("Close Browser");
             }
 

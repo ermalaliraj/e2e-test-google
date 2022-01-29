@@ -1,10 +1,10 @@
 package com.ea.stepdef;
 
-import com.ea.config.WebDriverFactory;
+import com.ea.config.DriverFactory;
 import org.openqa.selenium.WebDriver;
 
 public class BaseSteps {
 
-    protected WebDriver driver = WebDriverFactory.getInstance().getWebDriver();
+    protected WebDriver driver = DriverFactory.getInstance().getWebDriver();
 
 }

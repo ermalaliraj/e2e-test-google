@@ -19,9 +19,9 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @NoArgsConstructor
-public class WebDriverFactory {
+public class DriverFactory {
 
-    private static final Logger log = LoggerFactory.getLogger(WebDriverFactory.class);
+    private static final Logger log = LoggerFactory.getLogger(DriverFactory.class);
 
     public static final String DRIVER_CHROME = "chrome";
     public static final String DRIVER_FIREFOX = "firefox";
@@ -38,12 +38,12 @@ public class WebDriverFactory {
 
     private String browser;
     private WebDriver driver;
-    private static WebDriverFactory instance;
+    private static DriverFactory instance;
     private static Configuration config;
 
-    public static WebDriverFactory getInstance() {
+    public static DriverFactory getInstance() {
         if (instance == null) {
-            instance = new WebDriverFactory();
+            instance = new DriverFactory();
             instance.setBrowser(TestNgParameters.getInstance().getBrowser());
             config = new Configuration();
         }

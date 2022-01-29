@@ -1,6 +1,6 @@
 package com.ea.util;
 
-import com.ea.config.WebDriverFactory;
+import com.ea.config.DriverFactory;
 import org.apache.commons.io.FileUtils;
 import com.ea.config.Configuration;
 import com.ea.config.TestNgParameters;
@@ -84,44 +84,44 @@ public class ElementUtil {
     }
 
     public static void waitForElement(WebDriver driver, By by) {
-        waitForPageLoadComplete(driver, WebDriverFactory.TIME_OUT);
-        WebDriverWait wait = new WebDriverWait(driver, WebDriverFactory.TIME_OUT);
+        waitForPageLoadComplete(driver, DriverFactory.TIME_OUT);
+        WebDriverWait wait = new WebDriverWait(driver, DriverFactory.TIME_OUT);
         wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     public static WebElement waitForElementClickable(WebDriver driver, By by) {
-        driver.manage().timeouts().implicitlyWait(WebDriverFactory.TIME_OUT, TimeUnit.SECONDS);
-        WebDriverWait wait = new WebDriverWait(driver, WebDriverFactory.TIME_OUT);
+        driver.manage().timeouts().implicitlyWait(DriverFactory.TIME_OUT, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, DriverFactory.TIME_OUT);
         return wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(by)));
     }
 
     public static WebElement waitForElementTobePresent(WebDriver driver, By by) {
         Wait<WebDriver> wait = new FluentWait<>(driver)
 //                .withTimeout(Duration.ofSeconds(TIME_OUT))
-                .pollingEvery(Duration.ofSeconds(WebDriverFactory.POLLING_TIME))
+                .pollingEvery(Duration.ofSeconds(DriverFactory.POLLING_TIME))
                 .ignoring(Exception.class);
         return wait.until(driver1 -> driver1.findElement(by));
     }
 
     public static boolean waitForElementToBeDisplayed(WebDriver driver, By by) {
         Wait<WebDriver> wait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(WebDriverFactory.TIME_OUT))
-                .pollingEvery(Duration.ofSeconds(WebDriverFactory.POLLING_TIME))
+                .withTimeout(Duration.ofSeconds(DriverFactory.TIME_OUT))
+                .pollingEvery(Duration.ofSeconds(DriverFactory.POLLING_TIME))
                 .ignoring(Exception.class);
         return wait.until(driver1 -> driver1.findElement(by).isDisplayed());
     }
 
     public static boolean waitForElementToNotBeDisplayed(WebDriver driver, By by) {
         try {
-            driver.manage().timeouts().implicitlyWait(WebDriverFactory.POLLING_TIME, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(DriverFactory.POLLING_TIME, TimeUnit.SECONDS);
             Wait<WebDriver> wait = new FluentWait<>(driver)
-                    .withTimeout(Duration.ofSeconds(WebDriverFactory.TIME_OUT))
-                    .pollingEvery(Duration.ofSeconds(WebDriverFactory.POLLING_TIME));
+                    .withTimeout(Duration.ofSeconds(DriverFactory.TIME_OUT))
+                    .pollingEvery(Duration.ofSeconds(DriverFactory.POLLING_TIME));
             boolean found = false;
             long totalTime = 0;
             long startTime;
             long endTime;
-            while (!found && (totalTime / 1000) < WebDriverFactory.TIME_OUT) {
+            while (!found && (totalTime / 1000) < DriverFactory.TIME_OUT) {
                 startTime = System.currentTimeMillis();
                 found = wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
                 endTime = System.currentTimeMillis();
@@ -131,7 +131,7 @@ public class ElementUtil {
         } catch (Exception e) {
             return false;
         } finally {
-            driver.manage().timeouts().implicitlyWait(WebDriverFactory.TIME_OUT, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(DriverFactory.TIME_OUT, TimeUnit.SECONDS);
         }
     }
 
@@ -146,7 +146,7 @@ public class ElementUtil {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            driver.manage().timeouts().implicitlyWait(WebDriverFactory.TIME_OUT, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(DriverFactory.TIME_OUT, TimeUnit.SECONDS);
         }
         return bool;
     }
@@ -171,8 +171,8 @@ public class ElementUtil {
     public static void elementActionClick(WebDriver driver, By by) {
         Actions act;
         Wait<WebDriver> wait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(WebDriverFactory.TIME_OUT))
-                .pollingEvery(Duration.ofSeconds(WebDriverFactory.POLLING_TIME))
+                .withTimeout(Duration.ofSeconds(DriverFactory.TIME_OUT))
+                .pollingEvery(Duration.ofSeconds(DriverFactory.POLLING_TIME))
                 .ignoring(NoSuchElementException.class);
         WebElement element = wait.until(driver1 -> driver1.findElement(by));
         if (null != element) {

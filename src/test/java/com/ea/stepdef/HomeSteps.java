@@ -3,7 +3,7 @@ package com.ea.stepdef;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import com.ea.config.WebDriverFactory;
+import com.ea.config.DriverFactory;
 import com.ea.util.Util;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,12 +12,13 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import static com.ea.util.CommonKeyboard.clickEscButton;
+import static com.ea.util.ElementUtil.elementClick;
+import static com.ea.util.ElementUtil.elementChangeValue;
+import static com.ea.util.ElementUtil.getElements;
 import static com.ea.util.ElementUtil.startApp;
-import static com.ea.util.Util.checkElement;
-import static com.ea.util.Util.checkElementAndChangeValue;
-import static com.ea.util.Util.checkElementAndClick;
-import static com.ea.util.Util.checkElements;
+import static com.ea.util.ElementUtil.waitForElementTobePresent;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 public class HomeSteps extends BaseSteps {
@@ -33,43 +34,50 @@ public class HomeSteps extends BaseSteps {
 
     @Given("Navigate to {string} application")
     public void invokeApp(String appName) {
-        startApp(WebDriverFactory.getInstance().getWebDriver(), appName);
+        startApp(DriverFactory.getInstance().getWebDriver(), appName);
         log.debug("Navigated to {} application", appName);
     }
 
     @Then("Accept cookie browser")
     public void acceptCookie() {
-        checkElementAndClick(driver, XPATH_BUTTON_OK_COOKIE);
+        WebElement element = waitForElementTobePresent(driver, XPATH_BUTTON_OK_COOKIE);
+        elementClick(driver, element);
     }
 
     @Then("Home page is displayed")
     public void homePageDisplayed() {
-        checkElement(driver, XPATH_LOGO);
+        WebElement element = waitForElementTobePresent(driver, XPATH_LOGO);
+        assertNotNull(element, "Element " + XPATH_LOGO + " not found ");
     }
 
     @When("Insert {string} in the search input")
     public void search(String searchValue) {
-        checkElementAndChangeValue(driver, XPATH_INPUT_SEARCH, searchValue);
+        WebElement element = waitForElementTobePresent(driver, XPATH_INPUT_SEARCH);
+        elementChangeValue(element, searchValue);
     }
 
     @Then("Click search button")
     public void searchButton() {
         Util.wait(10);
         clickEscButton(driver);
-        checkElementAndClick(driver, XPATH_BUTTON_SEARCH);
+        WebElement element = waitForElementTobePresent(driver, XPATH_BUTTON_SEARCH);
+        elementClick(driver, element);
     }
 
     @Then("Search result will be generated with {int} rows")
     public void validateSearch(int rows) {
-        List<WebElement> elements = checkElements(driver, XPATH_SEARCH_RESULT);
+        List<WebElement> elements = getElements(driver, XPATH_SEARCH_RESULT);
+        assertNotNull(elements, "Elements " + XPATH_SEARCH_RESULT + " not found ");
         assertTrue(elements.size() > rows);
-        elements = checkElements(driver, XPATH_SEARCH_PAGINATOR);
+
+        elements = getElements(driver, XPATH_SEARCH_PAGINATOR);
+        assertNotNull(elements, "Elements " + XPATH_SEARCH_PAGINATOR + " not found ");
         assertEquals(elements.size(), 12);
     }
 
     @Then("Close the browser")
     public void closeTheBrowser() {
-        WebDriverFactory.getInstance().getWebDriver().quit();
+        DriverFactory.getInstance().getWebDriver().quit();
     }
 
 }
