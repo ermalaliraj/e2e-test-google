@@ -1,6 +1,6 @@
-package org.ea.listener;
+package com.ea.listener;
 
-import org.ea.config.TestNgParameters;
+import com.ea.config.TestNgParameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ISuite;

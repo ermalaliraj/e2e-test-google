@@ -1,4 +1,4 @@
-package org.ea.listener;
+package com.ea.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

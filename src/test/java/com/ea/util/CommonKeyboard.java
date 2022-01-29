@@ -1,4 +1,4 @@
-package org.ea.util;
+package com.ea.util;
 
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;

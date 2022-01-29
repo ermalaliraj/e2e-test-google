@@ -27,7 +27,7 @@
         <level value="WARN" />
     </logger>
 
-    <logger name="org.ea">
+    <logger name="com.ea">
         <level value="DEBUG" />
     </logger>
 

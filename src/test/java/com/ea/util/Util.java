@@ -1,4 +1,4 @@
-package org.ea.util;
+package com.ea.util;
 
 import lombok.experimental.UtilityClass;
 import org.openqa.selenium.By;
@@ -6,7 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
+
+import java.util.List;
+
+import static com.ea.util.ElementUtil.elementChangeValue;
+import static com.ea.util.ElementUtil.elementClick;
+import static com.ea.util.ElementUtil.getElements;
+import static com.ea.util.ElementUtil.waitForElementTobePresent;
+
+import static org.testng.Assert.assertNotNull;
 
 @UtilityClass
 public class Util {
@@ -14,19 +22,25 @@ public class Util {
     private static final Logger logger = LoggerFactory.getLogger(Util.class);
 
     public static WebElement checkElement(WebDriver driver, By xpathButton) {
-        WebElement element = Common.waitForElementTobePresent(driver, xpathButton);
-        Assert.assertNotNull(element, "Element " + xpathButton + " not found ");
+        WebElement element = waitForElementTobePresent(driver, xpathButton);
+        assertNotNull(element, "Element " + xpathButton + " not found ");
         return element;
     }
 
     public static void checkElementAndClick(WebDriver driver, By xPath) {
         WebElement element = checkElement(driver, xPath);
-        Common.elementClick(driver, element);
+        elementClick(driver, element);
     }
 
     public static void checkElementAndChangeValue(WebDriver driver, By xPath, String newValue) {
         WebElement element = checkElement(driver, xPath);
-        Common.elementChangeValue(element, newValue);
+        elementChangeValue(element, newValue);
+    }
+
+    public static List<WebElement> checkElements(WebDriver driver, By xPath) {
+        List<WebElement> elements = getElements(driver, xPath);
+        assertNotNull(elements, "Elements " + xPath + " not found ");
+        return elements;
     }
 
     public static void wait(int milliseconds) {

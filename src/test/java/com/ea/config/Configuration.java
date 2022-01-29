@@ -1,4 +1,4 @@
-package org.ea.config;
+package com.ea.config;
 
 import java.io.File;
 import java.io.FileReader;

@@ -1,20 +1,20 @@
-package org.ea.testRunner;
+package com.ea.testRunner;
 
+import com.ea.listener.SuiteListener;
+import com.ea.listener.TestListener;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-import org.ea.listener.SuiteListener;
-import org.ea.listener.TestListener;
 import org.testng.annotations.Listeners;
 
 @CucumberOptions(
-        features = {"classpath:features/E2e_Test.feature"}
+        features = {"classpath:features/Search.feature"}
         , plugin = {"pretty",
                     "html:target/cucumber/report.html",
                     "json:target/cucumber/reports.json",
                     "junit:target/junit-reports/reports.xml",
                     "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
                     "rerun:target/results/failed-reports/failedTestCases.txt"}
-        , glue = {"org/ea/stepdef"}
+        , glue = {"com/ea/stepdef"}
         , monochrome = true
 )
 

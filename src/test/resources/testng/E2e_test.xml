@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="E2eTestSuite" verbose="1">
+<suite name="GoogleTestSuite" verbose="1">
     <parameter name="environment" value="${environment}" />
     <parameter name="browser" value="${browser}" />
     <parameter name="mode" value="${mode}" />
     <test thread-count="1" name="E2eTest">
         <classes>
-            <class name="org.ea.testRunner.E2e_TestRunner"/>
+            <class name="com.ea.testRunner.E2e_TestRunner"/>
         </classes>
     </test>
 </suite>

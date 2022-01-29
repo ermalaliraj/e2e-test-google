@@ -1,4 +1,4 @@
-package org.ea.config;
+package com.ea.config;
 
 import lombok.NoArgsConstructor;
 import org.openqa.selenium.Platform;
