@@ -3,15 +3,15 @@ package org.ea.stepdef;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.ea.util.Common;
 import org.ea.config.WebDriverFactory;
-import org.ea.util.E2eUtil;
+import org.ea.util.Common;
+import org.ea.util.Util;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.Assert;
+
+import static org.ea.util.CommonKeyboard.clickEscButton;
+import static org.ea.util.Util.*;
 
 public class HomeSteps extends BaseSteps {
 
@@ -30,17 +30,17 @@ public class HomeSteps extends BaseSteps {
 
     @Then("Home page is displayed")
     public void homePageDisplayed() {
-        checkAndClickElement(driver, XPATH_BUTTON_OK_COOKIE);
-        checkForElement(driver, XPATH_LOGO);
+        checkElementAndClick(driver, XPATH_BUTTON_OK_COOKIE);
+        checkElement(driver, XPATH_LOGO);
         log.debug("All elements found in Homepage");
     }
 
     @When("^Search \"([^\"]*)\"")
     public void search(String searchValue) {
-        checkAndPopulateElement(driver, XPATH_INPUT_SEARCH, searchValue);
-        E2eUtil.wait(10);
-        Common.clickEsc(driver);
-        checkAndClickElement(driver, XPATH_BUTTON_SEARCH);
+        checkElementAndChangeValue(driver, XPATH_INPUT_SEARCH, searchValue);
+        Util.wait(10);
+        clickEscButton(driver);
+        checkElementAndClick(driver, XPATH_BUTTON_SEARCH);
         log.debug("All elements found in Homepage");
     }
 
@@ -52,22 +52,6 @@ public class HomeSteps extends BaseSteps {
     @Then("Close the browser")
     public void closeTheBrowser() {
         WebDriverFactory.getInstance().getWebDriver().quit();
-    }
-
-    private void checkAndClickElement(WebDriver driver, By xPath) {
-        WebElement element = checkForElement(driver, xPath);
-        Common.elementClick(driver, element);
-    }
-
-    private WebElement checkForElement(WebDriver driver, By xpathButton) {
-        WebElement element = Common.waitForElementTobePresent(driver, xpathButton);
-        Assert.assertNotNull(element, "Element " + xpathButton + " not found ");
-        return element;
-    }
-
-    private void checkAndPopulateElement(WebDriver driver, By xPath, String newValue) {
-        WebElement element = checkForElement(driver, xPath);
-        Common.elementChangeValue(element, newValue);
     }
 
 }

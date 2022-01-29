@@ -82,7 +82,7 @@
                             <jsonFiles>
                                 <jsonFile>**/*.json</jsonFile>
                             </jsonFiles>
-                            <projectName>campus-test-e2e</projectName>
+                            <projectName>Test E2e</projectName>
                             <skip>false</skip>
                             <inputDirectory>${project.build.directory}/cucumber</inputDirectory>
                             <mergeFeaturesById>true</mergeFeaturesById>
