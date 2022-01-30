@@ -1,9 +1,9 @@
 package com.ea.util;
 
-import com.ea.config.DriverFactory;
-import org.apache.commons.io.FileUtils;
 import com.ea.config.Configuration;
-import com.ea.config.TestNgParameters;
+import com.ea.config.TestContext;
+import com.ea.factory.DriverFactory;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static com.ea.util.Util.getTimeStamp;
 
 public class ElementUtil {
 
@@ -278,12 +280,12 @@ public class ElementUtil {
 
     private static void exceptionReport(WebDriver driver, By element, Exception e) {
         Reporter.getCurrentTestResult().setStatus(ITestResult.FAILURE);
-        takeScreenshot(driver);
+        takeScreenshot(driver, "");
         logger.error("The exception occurred in finding the following element " + element, e);
         throw new AssertionError("The exception occurred in finding the following element " + element, e);
     }
 
-    public static void takeScreenshot(WebDriver driver) {
+    public static void takeScreenshot(WebDriver driver, String screenshotName) {
         int resultStatus = Reporter.getCurrentTestResult().getStatus();
         boolean takeScreenshot = false;
         if (resultStatus == 1) {
@@ -293,20 +295,20 @@ public class ElementUtil {
         }
 
         if (takeScreenshot) {
-            doTakeScreenshot(driver);
+            doTakeScreenshot(driver, screenshotName);
         }
     }
 
-    private static void doTakeScreenshot(WebDriver driver) {
+    private static void doTakeScreenshot(WebDriver driver, String screenshotName) {
         TakesScreenshot screenShot = ((TakesScreenshot) driver);
         File srcFile = screenShot.getScreenshotAs(OutputType.FILE);
-        String fileName = Configuration.SCREENSHOT;
+        String fileName = Configuration.SCREENSHOT_PATH + screenshotName + "_" + getTimeStamp() + ".png";
         File destFile = new File(fileName);
         boolean copyScreenshots = Boolean.parseBoolean(System.getProperty("copyScreenshots")); //why not in property file. actually in pom
         if (copyScreenshots) {
-            TestNgParameters.getInstance().setScreenshotPath(fileName);
+            TestContext.getInstance().setScreenshotPath(fileName);
         } else {
-            TestNgParameters.getInstance().setScreenshotPath(destFile.getAbsolutePath());
+            TestContext.getInstance().setScreenshotPath(destFile.getAbsolutePath());
         }
         try {
             FileUtils.copyFile(srcFile, destFile);

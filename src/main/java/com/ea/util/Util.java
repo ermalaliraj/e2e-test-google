@@ -4,6 +4,10 @@ import lombok.experimental.UtilityClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @UtilityClass
 public class Util {
 
@@ -15,6 +19,13 @@ public class Util {
         } catch (Exception e) {
             logger.error("Exception occurred while waiting", e);
         }
+    }
+
+
+    public static String getTimeStamp() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
 }

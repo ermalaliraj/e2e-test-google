@@ -6,7 +6,8 @@ Feature: Google Search Feature
     When Insert "European Commission laws 2022" in the search input
     And Click search button
     Then Search result will be generated with 5 rows
-    Then Close the browser
+    And Search result will contain 12 pages in the footer
+#    Then Close the browser
 
 #  Scenario: Search using Enter key
 #    When Empty search input

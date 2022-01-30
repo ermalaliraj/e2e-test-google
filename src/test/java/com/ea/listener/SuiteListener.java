@@ -1,6 +1,7 @@
 package com.ea.listener;
 
-import com.ea.config.TestNgParameters;
+import com.ea.config.Configuration;
+import com.ea.config.TestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ISuite;
@@ -16,9 +17,10 @@ public class SuiteListener implements ISuiteListener {
         String browser = suite.getParameter("browser");
         String environment = suite.getParameter("environment");
         String mode = suite.getParameter("mode");
-        TestNgParameters.getInstance().setEnvironment(environment);
-        TestNgParameters.getInstance().setBrowser(browser);
-        TestNgParameters.getInstance().setMode(mode);
+
+        TestContext.getInstance().setEnvironment(environment);
+        TestContext.getInstance().setMode(mode);
+        TestContext.getInstance().setConfiguration(new Configuration());
         logger.debug("ENV parameters browser={}, environment={}, mode={}", browser, environment, mode);
     }
 

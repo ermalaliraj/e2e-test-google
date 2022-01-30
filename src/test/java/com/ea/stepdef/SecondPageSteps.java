@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class SecondPageSteps extends BaseSteps {
+public class SecondPageSteps {
 
     private static final Logger log = LoggerFactory.getLogger(SecondPageSteps.class);
 

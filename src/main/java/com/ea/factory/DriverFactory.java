@@ -1,5 +1,7 @@
-package com.ea.config;
+package com.ea.factory;
 
+import com.ea.config.Configuration;
+import com.ea.config.TestContext;
 import lombok.NoArgsConstructor;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -29,29 +31,19 @@ public class DriverFactory {
     public static final String DRIVER_EDGE = "edge";
     public static final int TIME_OUT = 10;
     public static final int POLLING_TIME = 1;
-
     public static final String DRIVER_MODE_LOCAL = "local";
     public static final String DRIVER_MODE_REMOTE = "remote";
-
     public static final String DRIVER_DOWNLOAD_DIR_REMOTE = "path.remote.download";
     public static final String DRIVER_DOWNLOAD_DIR_LOCAL = "path.local.download";
 
-    private String browser;
     private WebDriver driver;
     private static DriverFactory instance;
-    private static Configuration config;
 
     public static DriverFactory getInstance() {
         if (instance == null) {
             instance = new DriverFactory();
-            instance.setBrowser(TestNgParameters.getInstance().getBrowser());
-            config = new Configuration();
         }
         return instance;
-    }
-
-    public void setBrowser(String browser) {
-        this.browser = browser;
     }
 
     public WebDriver getWebDriver() {
@@ -59,8 +51,9 @@ public class DriverFactory {
     }
 
     public void setWebDriver() {
-        final String exeMode = TestNgParameters.getInstance().getMode();
-        final String gridUrl = config.getProperty("grid.url");
+        final String exeMode = TestContext.getInstance().getMode();
+        final String gridUrl = TestContext.getInstance().getConfiguration().getProperty("grid.url");
+        final String browser = TestContext.getInstance().getConfiguration().getProperty("browser");
         final boolean remote = DRIVER_MODE_REMOTE.equals(exeMode);
         remoteDriver(browser, gridUrl, remote);
     }
@@ -119,8 +112,8 @@ public class DriverFactory {
                     driver.manage().window().maximize();
                 }
             }
-        } catch (MalformedURLException e) {
-            log.error(e.getMessage(), e);
+        } catch (Exception e) {
+            log.error("Error creating the Driver", e);
         }
     }
 
@@ -137,7 +130,7 @@ public class DriverFactory {
         options.addArguments("enable-automation");
         options.addArguments("--disable-browser-side-navigation");
         Map<String, Object> prefs = new HashMap<>();
-        prefs.put("download.default_directory", config.getProperty(downloadDirectory));
+        prefs.put("download.default_directory", TestContext.getInstance().getConfiguration().getProperty(downloadDirectory));
         options.setExperimentalOption("prefs", prefs);
         options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
         return options;

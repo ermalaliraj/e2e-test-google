@@ -7,17 +7,21 @@ import lombok.ToString;
 
 @ToString
 @Data
-public class TestNgParameters {
+public class TestContext {
     @Getter(lazy = true)
-    private static final TestNgParameters instance = new TestNgParameters();
+    private static final TestContext instance = new TestContext();
+
+    private Configuration configuration;
     private String screenshotPath;
     private String environment;
-    private String browser;
     private String mode;
     private Scenario scenario;
 
-    private TestNgParameters(){
-        environment = "local";
+    public void setEnvironment(String environment) {
+        if (environment == null) {
+            environment = "local";
+        }
+        this.environment = environment;
     }
 
     public void reset() {

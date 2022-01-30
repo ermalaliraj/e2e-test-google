@@ -2,7 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="GoogleTestSuite" verbose="1">
     <parameter name="environment" value="${environment}" />
-    <parameter name="browser" value="${browser}" />
     <parameter name="mode" value="${mode}" />
     <test thread-count="1" name="E2eTest">
         <classes>
